@@ -21,8 +21,9 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    "DATABASE_URL")  # https://dashboard.heroku.com/apps/gofuckyourselfapp/settings в разделе Config Vars
+# "DATABASE_URL" environment variable if provided, but if it's None (e.g. when running locally) then we can provide sqlite:///blog.db as the alternative.
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///blog.db")  # DATABASE_URL
+# https://dashboard.heroku.com/apps/gofuckyourselfapp/settings в разделе Config Vars
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
